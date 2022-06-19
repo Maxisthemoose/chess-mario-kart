@@ -12,7 +12,7 @@ class Knight extends Piece {
     for (const m of arrOfMoves) {
       const tempMove = [this.x + m[0], this.y + m[1]];
 
-      const pieceInLocation = Util.pieceAtCords(m, pieces);
+      const pieceInLocation = Util.pieceAtCords(tempMove, pieces);
 
       if (tempMove[0] > 7 || tempMove[0] < 0 || tempMove[1] > 7 || tempMove[1] < 0) continue;
       else if (pieceInLocation !== undefined && pieceInLocation.color !== this.color) moves.push(tempMove);

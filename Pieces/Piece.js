@@ -6,6 +6,17 @@ class Piece {
   color;
 
   /**
+   * @type {number}
+   * @private
+   */
+  startX;
+  /**
+   * @type {number}
+   * @private 
+   */
+  startY;
+
+  /**
    * @type {*}
    * @private
    */
@@ -19,6 +30,8 @@ class Piece {
   constructor(x, y, type, color) {
     this.x = x;
     this.y = y;
+    this.startX = x;
+    this.startY = y;
     this.type = type;
     this.color = color;
   }
@@ -47,5 +60,19 @@ class Piece {
     this.hasMoved = true;
     this.x = cords[0];
     this.y = cords[1];
-  } 
+  }
+
+  /**
+   * @param {Piece} piece 
+   * @param {Piece[]} pieces
+   * @returns {Piece} the piece that was taken
+   */
+  take(piece, pieces) {
+    if (piece.color === this.color) return null;
+    const index = pieces.findIndex(p => p.x === piece.x && p.y === piece.y);
+    pieces.splice(index, 1);
+    piece.x = null;
+    piece.y = null;
+    return piece;
+  }
 }

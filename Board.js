@@ -36,19 +36,6 @@ class Board {
       }
     }
   }
-  // verifyMoves(piece, moves) {
-  //   /**
-  //    * @type {[number, number][]}
-  //    */
-  //   const valid = [];
-  //   for (const move of moves) {
-  //     const pieceInLocation = this.pieces.find((p) => p.x === move[0] && p.y === move[1]);
-  //     if (pieceInLocation !== undefined) {
-  //       if (pieceInLocation.color !== piece.color) valid.push(move);
-  //     } else valid.push(move);
-  //   }
-  //   return valid;
-  // }
 
   render() {
     canvas.width = this.size;
