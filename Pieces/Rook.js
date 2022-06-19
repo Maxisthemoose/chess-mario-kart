@@ -26,9 +26,8 @@ class Rook extends Piece {
         else if (d === 3)
           newCords = [this.x - i, this.y];
 
-        console.log(newCords, [this.x, this.y]);
-        const pieceInLocation = pieces.find(v => v.x === newCords[0] && v.y === newCords[1]);
-        console.log(pieceInLocation)
+        const pieceInLocation = Util.pieceAtCords(newCords, pieces);
+
         if (!pieceInLocation) moves.push(newCords);
         else if (pieceInLocation.color !== this.color) {
           moves.push(newCords);

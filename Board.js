@@ -5,7 +5,7 @@ class Board {
    * @type {Piece[]}
    */
   pieces = [];
-  fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+  fen = "rnbqkbnr/pppppppp/4R3/8/8/8/PPPPPPPP/1NBQKBNR w KQkq - 0 1";
 
   /**
    * @private
@@ -69,8 +69,12 @@ class Board {
    */
   renderMoves(moves) {
     const img = document.getElementById("move");
+    const take = document.getElementById("take");
+
     for (const m of moves) {
-      ctx.drawImage(img, m[0] * this.cell, m[1] * this.cell, this.cell, this.cell);
+      const p = this.pieces.find(v => v.x === m[0] && v.y === m[1]);
+      if (p !== undefined) ctx.drawImage(take, m[0] * this.cell, m[1] * this.cell, this.cell, this.cell)
+      else ctx.drawImage(img, m[0] * this.cell, m[1] * this.cell, this.cell, this.cell);
     }
   }
 }

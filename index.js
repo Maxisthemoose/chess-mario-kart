@@ -1,7 +1,7 @@
 const game = new Game();
 
 canvas.onclick = (ev) => {
-  const [x, y] = getCursorPosition(canvas, ev).map(v => floor100(v) / 100);
+  const [x, y] = Util.getCursorPosition(canvas, ev).map(v => floor100(v) / 100);
 
   if (game.selectedPiece === null) {
     const p = game.findPiece([x, y]);
