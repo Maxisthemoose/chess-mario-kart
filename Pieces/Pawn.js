@@ -14,6 +14,9 @@ class Pawn extends Piece {
    * @returns 
    */
   getMoves(pieces) {
+    /**
+     * @type {[number, number][]}
+     */
     const moves = [];
     const onePosAhead = [this.x, this.y + this.moveDirection];
     const twoAhead = [this.x, this.y + (this.moveDirection * 2)];

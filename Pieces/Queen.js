@@ -4,31 +4,14 @@ class Queen extends Piece {
   }
 
   getMoves(pieces) {
+
+    const tempRook = new Rook(this.x, this.y, "r", this.color);
+    const tempBishop = new Bishop(this.x, this.y, "b", this.color);
+
     /**
      * @type {[number, number][]}
      */
-    const moves = [];
-    const directions = [
-      [-1, -1], // left, up
-      [1, -1], // right, up
-      [-1, 1], // left, down
-      [1, 1], // right, down
-    ];
-    for (const direction of directions) {
-      let i = 1;
-      inner: while (true) {
-        const newMove = [this.x + (i * direction[0]), this.y + (i * direction[1])];
-        if (newMove[0] < 0 || newMove[0] > 7 || newMove[1] < 0 || newMove[1] > 7) break inner;
-        else moves.push(newMove);
-        i++;
-      }
-    }
-    for (let val = 0; val < 8; val++) {
-      moves.push([val, this.y]);
-      moves.push([this.x, val]);
-    }
-
+    const moves = tempBishop.getMoves(pieces).concat(tempRook.getMoves(pieces));
     return moves;
-
   }
 }

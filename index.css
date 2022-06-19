@@ -1,2 +1,21 @@
 body{background:#23272A;}
 div{display:flex;justify-content:center;align-items:center;}
+
+#board, 
+#blackTaken, 
+#whiteTaken {
+  display: block;
+}
+
+#blackTaken {
+  position: absolute;
+  top: 10px;
+}
+#board {
+  position: absolute;
+  top: 110px;
+}
+#whiteTaken {
+  position: absolute;
+  top: 910px;
+}

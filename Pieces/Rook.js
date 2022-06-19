@@ -8,7 +8,7 @@ class Rook extends Piece {
    */
   getMoves(pieces) {
     /**
-     * @type {[number, number]}
+     * @type {[number, number][]}
      */
     const moves = [];
 

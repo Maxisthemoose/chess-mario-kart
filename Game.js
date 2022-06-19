@@ -6,6 +6,21 @@ class Game {
    * @private
    */
   selectedPiece = null;
+
+  /**
+   * Array of all pieces white has took from black 
+   * Array should contain black pieces
+   * @type {Piece[]}
+   */
+  whiteTaken = [];
+
+  /**
+   * Array of all pieces black has took from white
+   * Array should contain white pieces
+   * @type {Piece[]}
+   */
+  blackTaken = [];
+
   constructor() {
     this.board.render();
   }

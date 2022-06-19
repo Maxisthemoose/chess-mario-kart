@@ -18,6 +18,15 @@ canvas.onclick = (ev) => {
     if (validSelected !== undefined) {
 
       const pieceThere = game.findPiece([x, y]);
+      if (pieceThere && pieceThere.color !== game.turn) {
+        const tookPiece = game.selectedPiece.take(pieceThere, game.board.pieces);
+        
+        if (tookPiece.color === "b") game.whiteTaken.push(tookPiece);
+        else game.blackTaken.push(tookPiece);
+
+        Util.renderTakenPieces(game.whiteTaken, wCtx);
+        Util.renderTakenPieces(game.blackTaken, bCtx);
+      }
 
       game.selectedPiece.move([x, y]);
       game.deselect();
