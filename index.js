@@ -24,8 +24,8 @@ canvas.onclick = (ev) => {
         if (tookPiece.color === "b") game.whiteTaken.push(tookPiece);
         else game.blackTaken.push(tookPiece);
 
-        Util.renderTakenPieces(game.whiteTaken, wCtx);
-        Util.renderTakenPieces(game.blackTaken, bCtx);
+        Util.renderTakenPieces(game.whiteTaken, wCtx, "b");
+        Util.renderTakenPieces(game.blackTaken, bCtx, "w");
       }
 
       game.selectedPiece.move([x, y]);
