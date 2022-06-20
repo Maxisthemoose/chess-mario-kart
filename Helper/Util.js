@@ -7,6 +7,15 @@ class Util {
   static bKingSideCastleOpen = [[5, 0], [6, 0]];
 
   /**
+   * @param {[number, number][]} moves 
+   * @param {Piece[]} pieces 
+   */
+  static legalMoves(moves, pieces) {
+
+  }
+
+
+  /**
    * @param {[number, number]} cords 
    * @param {Piece[]} pieceArray 
    * @returns {Piece}
