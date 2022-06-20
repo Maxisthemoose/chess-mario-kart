@@ -1,9 +1,8 @@
 class Game {
   board = new Board();
-  turn = "w";
+  // turn = "w";
   /**
    * @type {null | Piece}
-   * @private
    */
   selectedPiece = null;
 

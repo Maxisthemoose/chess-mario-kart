@@ -1,12 +1,16 @@
 class Board {
   size = 800;
+  turn = "w";
   cell = this.size / 8;
   /**
    * @type {Piece[]}
    */
   pieces = [];
-  fen = "rnbqkbnr/pppppppp/4R3/8/8/8/PPPPPPPP/1NBQKBNR w KQkq - 0 1";
-
+  fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+  // KQkq === true, true, true, true
+  // Qkq === false, true, true, true
+  // Kk === false, true, false, true
+  castleRights = [true, true, true, true];
   /**
    * @private
    */
@@ -33,8 +37,35 @@ class Board {
             this.pieces.push(new this.pieceMap[piece.toLowerCase()](x, y, piece.toLowerCase(), color));
           }
         }
+      } else if (i === 1) this.turn === fenComponents[i];
+      else if (i === 2) {
+        const components = fenComponents[i].split("");
+
       }
     }
+  }
+
+  updateCastleRights() {
+    const wRooks = this.pieces.filter(p => p.color === "w" && p.type === "r");
+    const bRooks = this.pieces.filter(p => p.color === "b" && p.type === "r");
+
+    const wKing = this.pieces.find(p => p.color === "w" && p.type === "k");
+    const bKing = this.pieces.find(p => p.color === "b" && p.type === "k");
+
+    if (wKing.hasMoved) {
+      this.castleRights[0] = false;
+      this.castleRights[1] = false;
+    }
+    if (bKing.hasMoved) {
+      this.castleRights[2] = false;
+      this.castleRights[3] = false;
+    }
+
+    if (wRooks[1].hasMoved) this.castleRights[0] = false;
+    if (wRooks[0].hasMoved) this.castleRights[1] = false;
+
+    if (bRooks[1].hasMoved) this.castleRights[2] = false;
+    if (bRooks[0].hasMoved) this.castleRights[3] = false;
   }
 
   render() {

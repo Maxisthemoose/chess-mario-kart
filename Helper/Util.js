@@ -25,6 +25,7 @@ class Util {
   /**
    * @param {Piece[]} pieces 
    * @param {CanvasRenderingContext2D} ctx
+   * @param {"w" | "b"} color Color of pieces in pieces array
    */
   static renderTakenPieces(pieces, ctx, color) {
     if (color === "w") ctx.fillStyle = "black";
