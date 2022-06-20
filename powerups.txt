@@ -16,3 +16,6 @@
 -fireball: chance to take selected piece, otherwise stuns for piece for a turn. Maybe also burn "tick" that limits movement 
 
 -piece themed ups: turn a piece into another piece for a turn. ex: Pawn picks up rook powerup -> next turn can move like rook.
+
+
+-powerup powerups after certain amount of moves.

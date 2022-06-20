@@ -15,3 +15,16 @@ Util.renderTakenPieces([], wCtx, "b");
  */
 const bCtx = blackTakenCanvas.getContext("2d");
 Util.renderTakenPieces([], bCtx, "w");
+
+
+
+
+// Array.isEqual = function (this, array) {
+
+//   if (this.length !== array.length) return false;
+
+//   for (let i = 0; i < this.length; i++) {
+//     if (array[i] !== this[i]) return false;
+//   }
+//   return true;
+// }

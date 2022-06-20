@@ -1,4 +1,11 @@
 class Util {
+
+  static wQueenSideCastleOpen = [[1, 7], [2, 7], [3, 7]];
+  static bQueenSideCastleOpen = [[1, 0], [2, 0], [3, 0]];
+
+  static wKingSideCastleOpen = [[5, 7], [6, 7]];
+  static bKingSideCastleOpen = [[5, 0], [6, 0]];
+
   /**
    * @param {[number, number]} cords 
    * @param {Piece[]} pieceArray 

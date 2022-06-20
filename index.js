@@ -28,7 +28,7 @@ canvas.onclick = (ev) => {
         Util.renderTakenPieces(game.blackTaken, bCtx, "w");
       }
 
-      game.selectedPiece.move([x, y], game.castleRights);
+      game.selectedPiece.move([x, y], game.pieces);
       game.board.updateCastleRights();
       game.deselect();
       game.board.render();

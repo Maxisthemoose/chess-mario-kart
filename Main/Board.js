@@ -6,7 +6,7 @@ class Board {
    * @type {Piece[]}
    */
   pieces = [];
-  fen = "rnbqkbnr/pp6/1P6/8/P1ppP3/2pKP3/PPppp1PP/RNBQ1BNR w KQkq - 0 1";
+  fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
   // KQkq === true, true, true, true
   // Qkq === false, true, true, true
   // Kk === false, true, false, true
@@ -30,11 +30,16 @@ class Board {
         const fenOnePieces = fenComponents[i].split("/");
         y: for (let y = 0; y < fenOnePieces.length; y++) {
           let pieces = fenOnePieces[y].split("");
+          let actualX = 0;
           for (let x = 0; x < pieces.length; x++) {
             const piece = pieces[x];
-            if (!isNaN(parseInt(piece))) continue;
+            if (!isNaN(parseInt(piece))) {
+              actualX += parseInt(piece);
+              continue;
+            }
             const color = piece.toLowerCase() === piece ? "b" : "w";
-            this.pieces.push(new this.pieceMap[piece.toLowerCase()](x, y, piece.toLowerCase(), color));
+            this.pieces.push(new this.pieceMap[piece.toLowerCase()](actualX, y, piece.toLowerCase(), color));
+            actualX++;
           }
         }
       } else if (i === 1) this.turn === fenComponents[i];

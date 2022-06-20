@@ -49,7 +49,7 @@ class Game {
     return this.selectedPiece;
   }
 
-    get pieces() {
+  get pieces() {
     return this.board.pieces;
   }
 

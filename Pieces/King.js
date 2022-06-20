@@ -10,6 +10,18 @@ class King extends Piece {
    * @private
    */
   rookPosKing;
+
+  /**
+   * @type {[number, number]}
+   * @private
+   */
+  rookPosQueenMoved;
+  /**
+   * @type {[number, number]}
+   * @private
+   */
+  rookPosKingMoved;
+
   /**
    * @type {[number, number]}
    * @private
@@ -28,11 +40,15 @@ class King extends Piece {
     if (this.color === "w") {
       this.rookPosQueen = [0, 7];
       this.rookPosKing = [7, 7];
+      this.rookPosKingMoved = [5, 7];
+      this.rookPosQueenMoved = [3, 7];
       this.castleKing = [6, 7];
       this.castleQueen = [2, 7];
     } else {
       this.rookPosQueen = [0, 0];
       this.rookPosKing = [7, 0];
+      this.rookPosKingMoved = [5, 0];
+      this.rookPosQueenMoved = [3, 0];
       this.castleKing = [6, 0];
       this.castleQueen = [2, 0];
     }
@@ -67,8 +83,34 @@ class King extends Piece {
       else moves.push(temp);
     }
 
-    console.log(castleAbilities);
+    const [
+      whiteQueenSide, whiteKingSide, blackQueenSide, blackKingSide
+    ] = castleAbilities;
 
+    const colorSpecificCastles = [this.color === "w" ? whiteQueenSide : blackQueenSide, this.color === "w" ? whiteKingSide : blackKingSide];
+
+    // kingside
+    if (colorSpecificCastles[1]) {
+      const ksSpaces = this.color === "w" ? Util.wKingSideCastleOpen : Util.bKingSideCastleOpen;
+
+      for (let i = 0; i < ksSpaces.length; i++) {
+        const pieceInWay = Util.pieceAtCords(ksSpaces[i], pieces);
+        if (pieceInWay !== undefined) break;
+        if (i === ksSpaces.length - 1) moves.push(this.castleKing);
+      }
+    }
+
+
+    // queenside
+    if (colorSpecificCastles[0]) {
+      const qsSpaces = this.color === "w" ? Util.wQueenSideCastleOpen : Util.bQueenSideCastleOpen;
+      for (let i = 0; i < qsSpaces.length; i++) {
+        const pieceInWay = Util.pieceAtCords(qsSpaces[i], pieces);
+        if (pieceInWay !== undefined) break;
+        if (i === qsSpaces.length - 1) moves.push(this.castleQueen);
+      }
+    }
+    
     // get normal moves first
     // dont forget to make sure theres no pieces in the way
     // possible mark of castle move in move cords somehow
@@ -85,5 +127,24 @@ class King extends Piece {
    */
   move(cords, pieces) {
 
+    // castle move
+    const kingSide = this.castleKing.isEqual(cords);
+    const queenSide = this.castleQueen.isEqual(cords);
+    if (kingSide || queenSide) {
+
+      if (kingSide) {
+        const kRook = Util.pieceAtCords(this.rookPosKing, pieces);
+        console.log(pieces.find(p => p.x === this.rookPosKing[0] && p.y === this.rookPosKing[1]));
+        console.log(pieces);
+        kRook.move(this.rookPosKingMoved);
+      } else if (queenSide) {
+        const qRook = Util.pieceAtCords(this.rookPosQueen, pieces);
+        qRook.move(this.rookPosQueenMoved);
+      }
+      this.x = cords[0];
+      this.y = cords[1];
+      this.hasMoved = true;
+    } else 
+      super.move(cords);
   }
 }
