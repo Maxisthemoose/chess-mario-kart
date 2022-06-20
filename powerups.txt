@@ -13,3 +13,6 @@
 -pow: stun the other side and allow you to go again (any piece). Chance to stun you instead and let the other side make two moves
 -super mush: allow that piece to move again
 -boo: steals powerup from random enemy. If no enemy has powerup, bring random low power item from specific pool.
+-fireball: chance to take selected piece, otherwise stuns for piece for a turn. Maybe also burn "tick" that limits movement 
+
+-piece themed ups: turn a piece into another piece for a turn. ex: Pawn picks up rook powerup -> next turn can move like rook.
