@@ -6,7 +6,7 @@ class Board {
    * @type {Piece[]}
    */
   pieces = [];
-  fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+  fen = "rnbqkbnr/pp6/1P6/8/P1ppP3/2pKP3/PPppp1PP/RNBQ1BNR w KQkq - 0 1";
   // KQkq === true, true, true, true
   // Qkq === false, true, true, true
   // Kk === false, true, false, true

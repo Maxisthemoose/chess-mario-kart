@@ -48,17 +48,33 @@ class King extends Piece {
      */
     const moves = [];
     const oneAwayMoves = [
+      [-1, 1], // left, down
       [0, 1], // down
+      [1, 1], // right, down
+      [-1, -1], // left, up
       [0, -1], // up
+      [1, -1], // right, up
       [1, 0], // right
       [-1, 0], // left
     ];
+
+    for (const move of oneAwayMoves) {
+      const temp = [this.x + move[0], this.y + move[1]];
+      const pieceAtLocation = Util.pieceAtCords(temp, pieces);
+      if (temp[0] > 7 || temp[0] < 0 || temp[1] > 7 || temp[1] < 0) continue;
+      if (pieceAtLocation === undefined) moves.push(temp);
+      else if (pieceAtLocation.color === this.color) continue;
+      else moves.push(temp);
+    }
+
+    console.log(castleAbilities);
 
     // get normal moves first
     // dont forget to make sure theres no pieces in the way
     // possible mark of castle move in move cords somehow
     // maybe just make move function know those specific castle moves and behave accordingly
 
+    return moves;
   }
 
   // king will require its own move function because the king is a bitch

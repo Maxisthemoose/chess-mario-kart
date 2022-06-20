@@ -7,19 +7,19 @@ canvas.onclick = (ev) => {
     const p = game.findPiece([x, y]);
     if (p === undefined) return;
 
-    if (game.board.turn !== p.color) return;
+    if (game.turn !== p.color) return;
 
     game.select(p);
-    const moves = p.getMoves(game.board.pieces);
+    const moves = p.getMoves(game.pieces, game.castleRights);
     game.board.renderMoves(moves);
   } else {
-    const allMoves = game.selectedPiece.getMoves(game.board.pieces);
+    const allMoves = game.selectedPiece.getMoves(game.pieces, game.castleRights);
     const validSelected = allMoves.find(v => v[0] === x && v[1] === y);
     if (validSelected !== undefined) {
 
       const pieceThere = game.findPiece([x, y]);
-      if (pieceThere && pieceThere.color !== game.board.turn) {
-        const tookPiece = game.selectedPiece.take(pieceThere, game.board.pieces);
+      if (pieceThere && pieceThere.color !== game.turn) {
+        const tookPiece = game.selectedPiece.take(pieceThere, game.pieces);
         
         if (tookPiece.color === "b") game.whiteTaken.push(tookPiece);
         else game.blackTaken.push(tookPiece);
@@ -28,17 +28,17 @@ canvas.onclick = (ev) => {
         Util.renderTakenPieces(game.blackTaken, bCtx, "w");
       }
 
-      game.selectedPiece.move([x, y], game.board.castleRights);
+      game.selectedPiece.move([x, y], game.castleRights);
       game.board.updateCastleRights();
       game.deselect();
       game.board.render();
-      game.board.turn = game.board.turn === "w" ? "b" : "w";
+      game.turn = game.turn === "w" ? "b" : "w";
     } else {
       const pieceThere = game.findPiece([x, y]);
-      if (pieceThere && pieceThere.color === game.board.turn) {
+      if (pieceThere && pieceThere.color === game.turn) {
         game.select(pieceThere);
         game.board.render();
-        game.board.renderMoves(pieceThere.getMoves(game.board.pieces));
+        game.board.renderMoves(pieceThere.getMoves(game.pieces, game.castleRights));
         return;
       }
       game.deselect();

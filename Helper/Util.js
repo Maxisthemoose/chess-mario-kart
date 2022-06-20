@@ -2,6 +2,7 @@ class Util {
   /**
    * @param {[number, number]} cords 
    * @param {Piece[]} pieceArray 
+   * @returns {Piece}
    */
   static pieceAtCords(cords, pieceArray) {
     const p = pieceArray.find(p => p.x === cords[0] && p.y === cords[1])

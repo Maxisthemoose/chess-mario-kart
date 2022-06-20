@@ -33,6 +33,7 @@ class Game {
     return piece;
   }
 
+
   /**
    * @param {Piece} piece 
    */
@@ -46,6 +47,25 @@ class Game {
 
   get selectedPiece() {
     return this.selectedPiece;
+  }
+
+    get pieces() {
+    return this.board.pieces;
+  }
+
+  get castleRights() {
+    return this.board.castleRights;
+  }
+
+  get turn() {
+    return this.board.turn;
+  }
+
+  /**
+   * @param {"w" | "b"} turn
+   */
+  set turn(turn) {
+    this.board.turn = turn;
   }
 
 }
