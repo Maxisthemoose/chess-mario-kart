@@ -6,7 +6,8 @@ class Board {
    * @type {Piece[]}
    */
   pieces = [];
-  fen = "rnbqkbnr/pppp2pp/8/4pp1Q/4PP2/8/PPPP2PP/RNB1KBNR b KQkq - 0 1";
+  // http://www.netreal.de/Forsyth-Edwards-Notation/index.php
+  fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
   // KQkq === true, true, true, true
   // Qkq === false, true, true, true
   // Kk === false, true, false, true
