@@ -6,7 +6,7 @@ class Board {
    * @type {Piece[]}
    */
   pieces = [];
-  fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+  fen = "rnbqkbnr/pppp2pp/8/4pp1Q/4PP2/8/PPPP2PP/RNB1KBNR b KQkq - 0 1";
   // KQkq === true, true, true, true
   // Qkq === false, true, true, true
   // Kk === false, true, false, true
@@ -26,6 +26,7 @@ class Board {
   setup() {
     const fenComponents = this.fen.split(" ");
     for (let i = 0; i < fenComponents.length; i++) {
+      console.log(fenComponents[i]);
       if (i === 0) {
         const fenOnePieces = fenComponents[i].split("/");
         y: for (let y = 0; y < fenOnePieces.length; y++) {
@@ -42,7 +43,7 @@ class Board {
             actualX++;
           }
         }
-      } else if (i === 1) this.turn === fenComponents[i];
+      } else if (i === 1) this.turn = fenComponents[i];
       else if (i === 2) {
         const components = fenComponents[i].split("");
 

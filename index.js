@@ -10,10 +10,13 @@ canvas.onclick = (ev) => {
     if (game.turn !== p.color) return;
 
     game.select(p);
-    const moves = p.getMoves(game.pieces, game.castleRights);
+    const moves = Util.legalMoves(p, game.pieces, game.castleRights);
+    // console.log(moves);
+    
     game.board.renderMoves(moves);
   } else {
-    const allMoves = game.selectedPiece.getMoves(game.pieces, game.castleRights);
+    const allMoves = Util.legalMoves(game.selectedPiece, game.pieces, game.castleRights);
+
     const validSelected = allMoves.find(v => v[0] === x && v[1] === y);
     if (validSelected !== undefined) {
 
@@ -29,6 +32,7 @@ canvas.onclick = (ev) => {
       }
 
       game.selectedPiece.move([x, y], game.pieces);
+
       game.board.updateCastleRights();
       game.deselect();
       game.board.render();
@@ -38,7 +42,7 @@ canvas.onclick = (ev) => {
       if (pieceThere && pieceThere.color === game.turn) {
         game.select(pieceThere);
         game.board.render();
-        game.board.renderMoves(pieceThere.getMoves(game.pieces, game.castleRights));
+        game.board.renderMoves(Util.legalMoves(pieceThere, game.pieces, game.castleRights));
         return;
       }
       game.deselect();

@@ -7,13 +7,52 @@ class Util {
   static bKingSideCastleOpen = [[5, 0], [6, 0]];
 
   /**
-   * @param {[number, number][]} moves 
+   * @param {Piece} piece 
    * @param {Piece[]} pieces 
+   * @param {boolean[]} castleRights
    */
-  static legalMoves(moves, pieces) {
+  static legalMoves(piece, pieces, castleRights) {
 
+    /**
+     * @type {[number, number][]}
+     */
+    const legal = [];
+    const king = pieces.find(p => p.type === "k" && p.color === piece.color);
+    const oppPieces = pieces.filter(p => p.color !== piece.color);
+
+    const color = piece.color;
+
+    const pLoc = [piece.x, piece.y];
+    const moves = piece.getMoves(pieces, castleRights);
+    
+    for (const m of moves) {
+      piece.x = m[0];
+      piece.y = m[1];
+      const checkAtNewPos = Util.inCheck(king, oppPieces, pieces, castleRights);
+      if (!checkAtNewPos) legal.push(m);
+    }
+
+    piece.x = pLoc[0];
+    piece.y = pLoc[1];
+    return legal;
   }
 
+  /**
+   * @param {Piece} king Current king
+   * @param {Piece[]} pieces Opponents pieces
+   * @param {Piece[]} allPieces All pieces
+   * @param {boolean[]} castleRights
+   */
+  static inCheck(king, pieces, allPieces, castleRights) {
+    const kingPos = [king.x, king.y];
+    for (const piece of pieces) {
+      const moves = piece.getMoves(allPieces, castleRights);
+      for (const move of moves) {
+        if (kingPos.isEqual(move)) return true;
+      }
+    }
+    return false;
+  }
 
   /**
    * @param {[number, number]} cords 
