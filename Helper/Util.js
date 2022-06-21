@@ -33,10 +33,25 @@ class Util {
     const moves = piece.getMoves(pieces, castleRights);
     
     for (const m of moves) {
+      const pieceThere = Util.pieceAtCords(m, pieces);
+      let pieceTherePos = [];
+      if (pieceThere !== undefined) {
+        pieceTherePos = [pieceThere.x, pieceThere.y];
+
+        pieceThere.x = null;
+        pieceThere.y = null;
+      }
+
       piece.x = m[0];
       piece.y = m[1];
       const checkAtNewPos = Util.inCheck(king, oppPieces, pieces, castleRights);
       if (!checkAtNewPos) legal.push(m);
+
+      if (pieceThere !== undefined) {
+        pieceThere.x = pieceTherePos[0];
+        pieceThere.y = pieceTherePos[1];
+      }
+
     }
 
     piece.x = pLoc[0];

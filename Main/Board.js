@@ -7,7 +7,7 @@ class Board {
    */
   pieces = [];
   // http://www.netreal.de/Forsyth-Edwards-Notation/index.php
-  fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
+  fen = "3pkp2/8/p7/1Q6/8/8/8/3PKP2 b KQkq - 0 1";
   // KQkq === true, true, true, true
   // Qkq === false, true, true, true
   // Kk === false, true, false, true
@@ -67,11 +67,11 @@ class Board {
       this.castleRights[3] = false;
     }
 
-    if (wRooks[1].hasMoved) this.castleRights[0] = false;
-    if (wRooks[0].hasMoved) this.castleRights[1] = false;
+    if (wRooks[1]?.hasMoved) this.castleRights[0] = false;
+    if (wRooks[0]?.hasMoved) this.castleRights[1] = false;
 
-    if (bRooks[1].hasMoved) this.castleRights[2] = false;
-    if (bRooks[0].hasMoved) this.castleRights[3] = false;
+    if (bRooks[1]?.hasMoved) this.castleRights[2] = false;
+    if (bRooks[0]?.hasMoved) this.castleRights[3] = false;
   }
 
   render() {

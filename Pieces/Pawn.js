@@ -28,7 +28,7 @@ class Pawn extends Piece {
     for (const m of diagonalMoves) {
       const pInLoc = Util.pieceAtCords(m, pieces);
       if (pInLoc === undefined) continue;
-      if (pInLoc.color !== this.color) moves.push(m); 
+      if (pInLoc.color !== this.color) moves.push(m);
     }
     const oneMoveLocation = Util.pieceAtCords(onePosAhead, pieces);
     const twoMoveLocation = Util.pieceAtCords(twoAhead, pieces);
