@@ -1,6 +1,9 @@
 const canvas = document.getElementById("board");
 const whiteTakenCanvas = document.getElementById("whiteTaken");
 const blackTakenCanvas = document.getElementById("blackTaken");
+
+const pawnPromotionCanvas = document.getElementById("pawnPromotion");
+
 /**
  * @type {CanvasRenderingContext2D}
  */
@@ -16,7 +19,10 @@ Util.renderTakenPieces([], wCtx, "b");
 const bCtx = blackTakenCanvas.getContext("2d");
 Util.renderTakenPieces([], bCtx, "w");
 
-
+/**
+ * @type {CanvasRenderingContext2D}
+ */
+const pCtx = pawnPromotionCanvas.getContext("2d");
 
 
 // Array.isEqual = function (this, array) {

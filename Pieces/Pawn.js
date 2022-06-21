@@ -38,4 +38,12 @@ class Pawn extends Piece {
 
     return moves;
   }
+
+  move(cords) {
+    super.move(cords);
+
+    PromotionHandler.checkPromotion();
+
+  }
+
 }
