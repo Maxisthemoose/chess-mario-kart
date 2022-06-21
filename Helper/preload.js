@@ -7,7 +7,7 @@ const pawnPromotionCanvas = document.getElementById("pawnPromotion");
 /**
  * @type {CanvasRenderingContext2D}
  */
-const ctx = canvas.getContext("2d");
+const ctx = self.ctx = canvas.getContext("2d");
 /**
  * @type {CanvasRenderingContext2D}
  */

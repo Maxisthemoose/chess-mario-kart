@@ -6,21 +6,6 @@ class PromotionHandler {
     bishop: Bishop,
     queen: Queen,
   }
-
-  // /**
-  //  * @type {Pawn[]}
-  //  */
-  // static blackPawns;
-  // /**
-  //  * @type {Pawn[]}
-  //  */
-  // static whitePawns;
-  // /**
-  //  * @param {Piece[]} pieces 
-  //  */
-  // constructor(pieces) {
-
-  // }
   
   /**
    * @param {Pawn} pawn 
@@ -37,6 +22,14 @@ class PromotionHandler {
    * @param {Pawn} pawn 
    */
   static promote(pawn) {
+
+    // const take = document.getElementById("take");
+    // console.log(take);
+    // console.log(canvas, ctx.drawImage.toString());
+
+    // ctx.drawImage(take, pawn.x * 100, pawn.y * 100, 100, 100);
+    // ctx.fill()
+
     PromotionHandler.renderChoices(pawn.color);
     PromotionHandler.handleSelection(pawn);
   }
@@ -47,6 +40,7 @@ class PromotionHandler {
     canvas.onclick = null;
     const image = document.getElementById("promotion");
     Util.roundRect(pCtx, 0, 0, 500, 200, 20);
+    pCtx.fillStyle = "#363c40";
     pCtx.fill();
     pCtx.drawImage(image, 50, 50, 400, 100);
 
@@ -65,6 +59,54 @@ class PromotionHandler {
   /**
    * @param {Pawn} pawn 
    */
-  static handleSelection(pawn) { }
- 
+  static handleSelection(pawn) {
+    
+    pawnPromotionCanvas.onclick = function (ev) {
+      const [x, y] = Util.getCursorPosition(pawnPromotionCanvas, ev);
+      // rook, knight, bishop, queen, queen-end
+      const xCords = [50, 150, 250, 350, 450];
+      // +100 for bottom
+      const yCord = 50;
+
+      // rook
+      if (y >= yCord && y <= yCord + 100) {
+        /**
+         * @type {Rook | Knight | Bishop | Queen}
+         */
+        let pieceToPromote;
+        let type = "";
+        if (x >= xCords[0] && x < xCords[1]) {
+          pieceToPromote = PromotionHandler.canPromoteTo.rook;
+          type = "r";
+        } else if (x >= xCords[1] && x < xCords[2]) {
+          pieceToPromote = PromotionHandler.canPromoteTo.knight;
+          type = "n";
+        } else if (x >= xCords[2] && x < xCords[3]) {
+          pieceToPromote = PromotionHandler.canPromoteTo.bishop;
+          type = "b";
+        } else if (x >= xCords[3] && x < xCords[4]) {
+          pieceToPromote = PromotionHandler.canPromoteTo.queen;
+          type = "q";
+        }
+        if (pieceToPromote !== undefined) {
+          /**
+           * @type {Piece}
+           */
+          const piece = new pieceToPromote(pawn.x, pawn.y, type, pawn.color);
+          const removed = game.pieces.replace((p) => p.type === pawn.type && p.x === pawn.x && p.y === pawn.y && p.color === pawn.color, piece);
+
+          game.pieces.push(piece);
+
+          game.board.updateCastleRights();
+          game.board.render();
+
+          pCtx.fillStyle = "#23272A";
+          pCtx.fillRect(0, 0, pawnPromotionCanvas.width, pawnPromotionCanvas.height);
+
+          pawnPromotionCanvas.onclick = null;
+          canvas.onclick = mainGame;
+        }
+      }
+    }
+  }
 }

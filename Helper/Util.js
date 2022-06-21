@@ -124,8 +124,8 @@ class Util {
    * @param {"w" | "b"} color Color of pieces in pieces array
    */
   static renderTakenPieces(pieces, ctx, color) {
-    if (color === "w") ctx.fillStyle = "black";
-    else if (color === "b") ctx.fillStyle = "white";
+    if (color === "w") ctx.fillStyle = "#141414";
+    else if (color === "b") ctx.fillStyle = "#dedede";
 
     Util.roundRect(ctx, 0, 0, 800, 75, 15);
     ctx.fill();

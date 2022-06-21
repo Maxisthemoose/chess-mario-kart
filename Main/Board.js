@@ -1,13 +1,15 @@
 class Board {
-  size = 800;
+  // static size = 800;
   turn = "w";
+  // static cell = Board.size / 8;
+  size = 800;
   cell = this.size / 8;
   /**
    * @type {Piece[]}
    */
   pieces = [];
   // http://www.netreal.de/Forsyth-Edwards-Notation/index.php
-  fen = "3pkp2/PPP5/8/8/8/8/ppp5/4K1Q1 b KQkq - 0 1";
+  fen = "rnbqkbnr/pppppppp/8/8/8/8/PPPPPPPP/RNBQKBNR w KQkq - 0 1";
   // KQkq === true, true, true, true
   // Qkq === false, true, true, true
   // Kk === false, true, false, true
@@ -75,6 +77,8 @@ class Board {
   }
 
   render() {
+    // canvas.width = Board.size;
+    // canvas.height = Board.size;
     canvas.width = this.size;
     canvas.height = this.size;
 

@@ -39,11 +39,9 @@ class Pawn extends Piece {
     return moves;
   }
 
-  move(cords) {
+  move(cords, pieces, ctx) {
     super.move(cords);
-    console.log("a");
     PromotionHandler.checkPromotion(this);
-
   }
 
 }

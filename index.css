@@ -24,5 +24,6 @@ div{display:flex;justify-content:center;align-items:center;}
 #pawnPromotion {
   position: absolute;
   top: 410px;
-  left: calc(50% + 500px);
+  /* color: #adfc032a; */
+  left: calc(50% + 450px);
 }

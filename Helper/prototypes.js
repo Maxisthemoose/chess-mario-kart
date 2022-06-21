@@ -13,3 +13,15 @@ Array.prototype.isEqual = function (array) {
   }
   return true;
 }
+
+/**
+ * @template T
+ * @param {Function} findFn 
+ * @returns {T}
+ */
+Array.prototype.replace = function (findFn, replace) {
+  if (this.length === 0) return undefined;
+  const index = this.findIndex(findFn);
+  const item = this.splice(index, 1, )[0];
+  return item;
+}

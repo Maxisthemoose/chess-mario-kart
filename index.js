@@ -1,9 +1,12 @@
 const game = new Game();
 
-canvas.onclick = function mainGame(ev) {
+canvas.onclick = mainGame;
+
+function mainGame(ev) {
   const [x, y] = Util.getCursorPosition(canvas, ev).map(v => floor100(v) / 100);
   if (game.selectedPiece === null) {
     const p = game.findPiece([x, y]);
+
     if (p === undefined) return;
     if (game.turn !== p.color) return;
 
@@ -26,7 +29,7 @@ canvas.onclick = function mainGame(ev) {
         Util.renderTakenPieces(game.blackTaken, bCtx, "w");
       }
 
-      game.selectedPiece.move([x, y], game.pieces);
+      game.selectedPiece.move([x, y], game.pieces, ctx);
 
       game.board.updateCastleRights();
       game.deselect();
