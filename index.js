@@ -2,24 +2,19 @@ const game = new Game();
 
 canvas.onclick = (ev) => {
   const [x, y] = Util.getCursorPosition(canvas, ev).map(v => floor100(v) / 100);
-
   if (game.selectedPiece === null) {
     const p = game.findPiece([x, y]);
     if (p === undefined) return;
-
     if (game.turn !== p.color) return;
 
     game.select(p);
     const moves = Util.legalMoves(p, game.pieces, game.castleRights);
-    // console.log(moves);
-    
     game.board.renderMoves(moves);
+
   } else {
     const allMoves = Util.legalMoves(game.selectedPiece, game.pieces, game.castleRights);
-
     const validSelected = allMoves.find(v => v[0] === x && v[1] === y);
     if (validSelected !== undefined) {
-
       const pieceThere = game.findPiece([x, y]);
       if (pieceThere && pieceThere.color !== game.turn) {
         const tookPiece = game.selectedPiece.take(pieceThere, game.pieces);
@@ -37,6 +32,11 @@ canvas.onclick = (ev) => {
       game.deselect();
       game.board.render();
       game.turn = game.turn === "w" ? "b" : "w";
+      
+      const checkmate = Util.inCheckmate(game.turn, game.pieces, game.castleRights);
+      if (checkmate) {
+        alert(checkmate + " was checkmated");
+      }
     } else {
       const pieceThere = game.findPiece([x, y]);
       if (pieceThere && pieceThere.color === game.turn) {

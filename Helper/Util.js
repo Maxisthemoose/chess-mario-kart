@@ -13,6 +13,13 @@ class Util {
    */
   static legalMoves(piece, pieces, castleRights) {
 
+    /*
+
+    MAKE SPECIAL CHECK CASE FOR KING CASTLEING
+    CANT MOVE THROUGH CHECK
+
+    */
+
     /**
      * @type {[number, number][]}
      */
@@ -52,6 +59,24 @@ class Util {
       }
     }
     return false;
+  }
+
+  /**
+   * @param {"w" | "b"} check 
+   * @param {Piece[]} pieces 
+   * @param {boolean[]} castleRights
+   * @returns {"w" | "b" | boolean} The color that is checkmated
+   */
+  static inCheckmate(check, pieces, castleRights) {
+    const piecesToCheck = pieces.filter(p => p.color === check);
+
+    for (const piece of piecesToCheck) {
+      const legalMoves = Util.legalMoves(piece, pieces, castleRights);
+      if (legalMoves.length > 0) return false;
+    }
+
+    return check;
+
   }
 
   /**

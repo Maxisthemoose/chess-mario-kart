@@ -27,7 +27,6 @@ class Board {
   setup() {
     const fenComponents = this.fen.split(" ");
     for (let i = 0; i < fenComponents.length; i++) {
-      console.log(fenComponents[i]);
       if (i === 0) {
         const fenOnePieces = fenComponents[i].split("/");
         y: for (let y = 0; y < fenOnePieces.length; y++) {
