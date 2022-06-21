@@ -34,8 +34,22 @@ function mainGame(ev) {
       game.board.updateCastleRights();
       game.deselect();
       game.board.render();
+
+      // const whiteKing = game.pieces.find(p => p.color === "w" && p.type === "k");
+      // const blackKing = game.pieces.find(p => p.color === "b" && p.type === "k");
+      // const wDraw = Util.isDraw();
+      // const bDraw = 
+
       game.turn = game.turn === "w" ? "b" : "w";
       
+      const king = game.pieces.find(p => p.color === game.turn && p.type === "k");
+      const draw = Util.isDraw(king, game.pieces, game.castleRights);
+
+      if (draw) {
+        alert("DRAW");
+        canvas.onclick = null;
+      }
+
       const checkmate = Util.inCheckmate(game.turn, game.pieces, game.castleRights);
       if (checkmate) {
         alert(checkmate + " was checkmated");

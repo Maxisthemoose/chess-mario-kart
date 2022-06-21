@@ -1,7 +1,5 @@
 class Board {
-  // static size = 800;
   turn = "w";
-  // static cell = Board.size / 8;
   size = 800;
   cell = this.size / 8;
   /**

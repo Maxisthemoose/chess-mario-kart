@@ -91,6 +91,67 @@ class Util {
     }
 
     return check;
+  }
+
+  /**
+   * @param {King} king 
+   * @param {Piece[]} pieces 
+   * @param {boolean[]} castleRights 
+   * @returns {boolean}
+   */
+  static isDraw(king, pieces, castleRights) {
+    const stale = Util.stalemate(king, pieces, castleRights);
+    const insufficient = Util.isInsufficientMaterial(pieces);
+    return stale || insufficient;
+  }
+
+  /**
+   * @param {King} king
+   * @param {Piece[]} pieces
+   * @param {boolean[]} castleRights
+   */
+  static stalemate(king, pieces, castleRights) {
+    const oppPieces = pieces.filter(p => p.color !== king.color && p.type !== "k");
+    const kingLegal = Util.legalMoves(king, pieces, castleRights);
+    const kingInCheck = Util.inCheck(king, oppPieces, pieces, castleRights);
+    if (kingLegal.length === 0 && !kingInCheck) {
+      const sameColorPieces = pieces.filter(p => p.color === king.color && p.type !== "k");
+      let legalMoves = [];
+      for (const p of sameColorPieces) {
+        const legalForPiece = Util.legalMoves(p, pieces, castleRights);
+        legalMoves = legalMoves.concat(legalForPiece);
+      }
+      if (legalMoves.length === 0) return true;
+    }
+  }
+
+  // I hate this function. Truly
+  /**
+   * @param {Piece[]} pieces 
+   */
+  static isInsufficientMaterial(pieces) {
+    const whitePieces = pieces.filter(p => p.color === "w");
+    const blackPieces = pieces.filter(p => p.color === "b");
+    const wLen = whitePieces.length;
+    const bLen = blackPieces.length;
+
+    if (!whitePieces.find(p => p.type === "p") && !blackPieces.find(p => p.type === "p")) {
+      if (wLen <= 3 && bLen <= 3) {
+        if (wLen < 3 && bLen < 3) {
+          if (!whitePieces.find(p => p.type === "r")
+            && !blackPieces.find(p => p.type === "r")
+            && !whitePieces.find(p => p.type === "q")
+            && !blackPieces.find(p => p.type === "q")) return true;
+          else return false;
+        } else if (wLen === 1 && bLen === 3) {
+          if (blackPieces.filter(p => p.type === "n").length === 2) return true;
+          else return false;
+        } else if (wLen === 3 && bLen === 1) {
+          if (whitePieces.filter(p => p.type === "n").length === 2) return true;
+          else return false;
+        } else return false;
+      } else return false;
+    } else return false;     
 
   }
 
