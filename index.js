@@ -1,6 +1,6 @@
 const game = new Game();
 
-canvas.onclick = (ev) => {
+canvas.onclick = function mainGame(ev) {
   const [x, y] = Util.getCursorPosition(canvas, ev).map(v => floor100(v) / 100);
   if (game.selectedPiece === null) {
     const p = game.findPiece([x, y]);

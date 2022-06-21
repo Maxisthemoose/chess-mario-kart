@@ -7,7 +7,7 @@ class Board {
    */
   pieces = [];
   // http://www.netreal.de/Forsyth-Edwards-Notation/index.php
-  fen = "3pkp2/8/p7/1Q6/8/8/8/3PKP2 b KQkq - 0 1";
+  fen = "3pkp2/PPP5/8/8/8/8/ppp5/4K1Q1 b KQkq - 0 1";
   // KQkq === true, true, true, true
   // Qkq === false, true, true, true
   // Kk === false, true, false, true

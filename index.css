@@ -3,7 +3,8 @@ div{display:flex;justify-content:center;align-items:center;}
 
 #board, 
 #blackTaken, 
-#whiteTaken {
+#whiteTaken,
+#pawnPromotion {
   display: block;
 }
 
@@ -18,4 +19,10 @@ div{display:flex;justify-content:center;align-items:center;}
 #whiteTaken {
   position: absolute;
   top: 935px;
+}
+
+#pawnPromotion {
+  position: absolute;
+  top: 410px;
+  left: calc(50% + 500px);
 }

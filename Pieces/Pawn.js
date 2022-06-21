@@ -41,8 +41,8 @@ class Pawn extends Piece {
 
   move(cords) {
     super.move(cords);
-
-    PromotionHandler.checkPromotion();
+    console.log("a");
+    PromotionHandler.checkPromotion(this);
 
   }
 

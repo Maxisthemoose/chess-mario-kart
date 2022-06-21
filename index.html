@@ -14,7 +14,7 @@
     <canvas id="blackTaken" height="75" width="800"></canvas>
     <canvas id="board"></canvas>
     <canvas id="whiteTaken" height="75" width="800"></canvas>
-    <canvas id="pawnPromotion"></canvas>
+    <canvas id="pawnPromotion" width="500" height="200"></canvas>
   </div>
 
 
@@ -23,11 +23,12 @@
 <script src="./Helper/prototypes.js"></script>
 <script src="./Helper/Util.js"></script>
 <script src="./Helper/preload.js"></script>
-<script src="./Helper/PromotionHandler.js"></script>
+
 
 <img id="boardImage" src="./images/150.png" hidden=true>
 <img id="move" src="./images/move.png" hidden=true>
 <img id="take" src="./images/take.png" hidden=true>
+<img id="promotion" src="./images/4square.png" hidden=true>
 
 <img id="wp" src="./images/wp.png" hidden=true>
 <img id="wr" src="./images/wr.png" hidden=true>
@@ -49,6 +50,9 @@
 <script src="Pieces/Knight.js"></script>
 <script src="Pieces/Bishop.js"></script>
 <script src="Pieces/Queen.js"></script>
+
+<script src="./Helper/PromotionHandler.js"></script>
+
 <script src="Pieces/King.js"></script>
 
 
