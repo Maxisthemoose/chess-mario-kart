@@ -4,6 +4,7 @@ class Powerup {
   name;
   image;
   description;
+  passive;
   global;
   piece;
   /**
@@ -14,14 +15,16 @@ class Powerup {
    * @param {string} description 
    * @param {boolean} global 
    * @param {Piece | undefined} piece 
+   * @param {boolean} passive
    */
-  constructor(x, y, name, image, description, global) {
+  constructor(x, y, name, image, description, global, passive) {
     this.x = x;
     this.y = y;
     this.name = name;
     this.image = image;
     this.description = description;
     this.global = global;
+    this.passive = passive;
   }
   use() { }
   

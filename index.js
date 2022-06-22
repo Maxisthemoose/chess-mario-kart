@@ -11,6 +11,9 @@ function mainGame(ev) {
     if (game.turn !== p.color) return;
 
     game.select(p);
+
+    game.powerupHandler.renderInfoboard();
+
     const moves = Util.legalMoves(p, game.pieces, game.castleRights);
     game.board.renderMoves(moves);
 
@@ -43,11 +46,7 @@ function mainGame(ev) {
       game.board.updateCastleRights();
       game.deselect();
       game.board.render(game.powerupHandler);
-
-      // const whiteKing = game.pieces.find(p => p.color === "w" && p.type === "k");
-      // const blackKing = game.pieces.find(p => p.color === "b" && p.type === "k");
-      // const wDraw = Util.isDraw();
-      // const bDraw = 
+      game.powerupHandler.clearInfoboard();
 
       game.turn = game.turn === "w" ? "b" : "w";
       
@@ -65,11 +64,13 @@ function mainGame(ev) {
         canvas.onclick = null;
       }
     } else {
+      game.powerupHandler.clearInfoboard();
       const pieceThere = game.findPiece([x, y]);
       if (pieceThere && pieceThere.color === game.turn) {
         game.select(pieceThere);
         game.board.render(game.powerupHandler);
         game.board.renderMoves(Util.legalMoves(pieceThere, game.pieces, game.castleRights));
+        game.powerupHandler.renderInfoboard();
         return;
       }
       game.deselect();

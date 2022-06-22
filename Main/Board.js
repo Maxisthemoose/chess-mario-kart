@@ -86,14 +86,21 @@ class Board {
 
     const boardImage = document.getElementById("boardImage");
     ctx.drawImage(boardImage, 0, 0, 800, 800);
+    const alreadyDrawnIndex = [];
 
     for (const piece of this.pieces) {
       const pieceImage = document.getElementById(piece.color + piece.type);
+      for (let i = 0; i < powersOnBoard.length; i++) {
+        const p = powersOnBoard[i];
+        if (!alreadyDrawnIndex.includes(i) && this.pieces.find(pi => pi.x === p.x && pi.y === p.y)) {
+          ctx.drawImage(p.image, p.x * this.cell, p.y * this.cell, this.cell / 5, this.cell / 5);
+          alreadyDrawnIndex.push(i);
+        } else if (!alreadyDrawnIndex.includes(i)) {
+          ctx.drawImage(p.image, p.x * this.cell, p.y * this.cell, this.cell, this.cell);
+          alreadyDrawnIndex.push(i);
+        }
+      }
       ctx.drawImage(pieceImage, piece.x * this.cell, piece.y * this.cell, this.cell, this.cell);
-    }
-
-    for (const powerup of powersOnBoard) {
-      ctx.drawImage(powerup.image, powerup.x * this.cell, powerup.y * this.cell, this.cell, this.cell);
     }
   }
 

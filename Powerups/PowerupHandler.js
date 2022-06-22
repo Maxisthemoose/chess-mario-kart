@@ -23,10 +23,9 @@ class PowerupHandler {
    * @param {Piece} piece 
    */
   onMove(piece) {
-    console.log(PowerupHandler.allPowerups);
-    // 30% chance powerup spawns on move
+    // 20% chance powerup spawns on move
     const random = Math.random();
-    if (random <= 0.3 && this.powerups.length < 3) this.spawnPowerup();
+    if (random <= 0.2 && this.powerups.length < 2) this.spawnPowerup();
 
     const powerupAtLocation = this.powerups.find(power => power.x === piece.x && power.y === piece.y);
     if (powerupAtLocation !== undefined) this.handlePickup(piece, powerupAtLocation);
@@ -37,6 +36,7 @@ class PowerupHandler {
    * @param {Powerup} powerup
    */
   handlePickup(piece, powerup) {
+    if (piece.powerup !== undefined) return;
     this.powerups.splice(this.powerups.findIndex(pow => pow.x === powerup.x && pow.y === powerup.y), 1);
     piece.pickupPowerup(powerup);
   }
@@ -76,6 +76,53 @@ class PowerupHandler {
       piece.powerup = undefined;
       return used;
     }
+  }
+
+  renderInfoboard() {
+    const piece = game.selectedPiece;
+    const ctx = iCtx;
+    const width = ctx.canvas.width;
+    const height = ctx.canvas.height;
+    const powerup = piece.powerup;
+
+    if (powerup === undefined) return;
+
+    ctx.fillStyle = "#363c40";
+    Util.roundRect(ctx, 0, 0, width, height, 30);
+    ctx.fill();
+    ctx.drawImage(powerup.image, (width / 2) - 50, 25, 100, 100);
+    const pieceImage = document.getElementById(piece.color + piece.type);
+    ctx.drawImage(pieceImage, 25, 25, 75, 75);
+
+    ctx.font = "bold 35px Courier New";
+    ctx.textAlign = "center";
+    ctx.fillStyle = "#FAF9F6";
+    ctx.fillText(powerup.name, width / 2, height / 2.5)
+
+    ctx.font = "20px Courier New";
+
+    const lines = Util.getLines(ctx, powerup.description, width - 50);
+    const startY = height / 2;
+    for (let y = 0; y < lines.length; y++) {
+      ctx.fillText(lines[y], width / 2, startY + y * 25);
+    }
+
+    if (!powerup.passive) {
+
+    } else {
+      ctx.font = "bold 28px Courier New";
+      ctx.fillText("🟢 Passive Powerup", width / 2, height / 1.25);
+    }
+
+  }
+
+  handleUseButton(powerup) {
+
+  }
+
+  clearInfoboard() {
+    iCtx.fillStyle = "#23272A";
+    iCtx.fillRect(0, 0, iCtx.canvas.width, iCtx.canvas.height);
   }
 
 }

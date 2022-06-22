@@ -27,3 +27,10 @@ div{display:flex;justify-content:center;align-items:center;}
   /* color: #adfc032a; */
   left: calc(50% + 450px);
 }
+
+#infoBoard {
+  position: absolute;
+  top: 310px;
+  left: 10%;
+  
+}

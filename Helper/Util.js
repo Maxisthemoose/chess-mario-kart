@@ -27,8 +27,6 @@ class Util {
     const king = pieces.find(p => p.type === "k" && p.color === piece.color);
     const oppPieces = pieces.filter(p => p.color !== piece.color);
 
-    const color = piece.color;
-
     const pLoc = [piece.x, piece.y];
     const moves = piece.getMoves(pieces, castleRights);
     
@@ -220,4 +218,30 @@ class Util {
     ctx.arcTo(x, y, x + w, y, r);
     ctx.closePath();
   }
+
+  /**
+   * @link https://stackoverflow.com/questions/2936112/text-wrap-in-a-canvas-element
+   * @param {CanvasRenderingContext2d} ctx 
+   * @param {string} text 
+   * @param {number} maxWidth  
+   */
+  static getLines(ctx, text, maxWidth) {
+    let words = text.split(" ");
+    let lines = [];
+    let currentLine = words[0];
+
+    for (let i = 1; i < words.length; i++) {
+      let word = words[i];
+      let width = ctx.measureText(currentLine + " " + word).width;
+      if (width < maxWidth) {
+          currentLine += " " + word;
+      } else {
+        lines.push(currentLine);
+        currentLine = word;
+      }
+    }
+    lines.push(currentLine);
+    return lines;
+  }
+
 }

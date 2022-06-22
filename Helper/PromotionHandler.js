@@ -93,12 +93,12 @@ class PromotionHandler {
            * @type {Piece}
            */
           const piece = new pieceToPromote(pawn.x, pawn.y, type, pawn.color);
-          const removed = game.pieces.replace((p) => p.type === pawn.type && p.x === pawn.x && p.y === pawn.y && p.color === pawn.color, piece);
+          game.pieces.replace((p) => p.type === pawn.type && p.x === pawn.x && p.y === pawn.y && p.color === pawn.color, piece);
 
           game.pieces.push(piece);
 
           game.board.updateCastleRights();
-          game.board.render();
+          game.board.render(game.powerupHandler);
 
           pCtx.fillStyle = "#23272A";
           pCtx.fillRect(0, 0, pawnPromotionCanvas.width, pawnPromotionCanvas.height);
