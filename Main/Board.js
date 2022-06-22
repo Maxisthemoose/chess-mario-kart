@@ -74,9 +74,13 @@ class Board {
     if (bRooks[0]?.hasMoved) this.castleRights[3] = false;
   }
 
-  render() {
-    // canvas.width = Board.size;
-    // canvas.height = Board.size;
+  /**
+   * @param {PowerupHandler} puHandler 
+   */
+  render(puHandler) {
+
+    const powersOnBoard = puHandler.powerups;
+
     canvas.width = this.size;
     canvas.height = this.size;
 
@@ -86,6 +90,10 @@ class Board {
     for (const piece of this.pieces) {
       const pieceImage = document.getElementById(piece.color + piece.type);
       ctx.drawImage(pieceImage, piece.x * this.cell, piece.y * this.cell, this.cell, this.cell);
+    }
+
+    for (const powerup of powersOnBoard) {
+      ctx.drawImage(powerup.image, powerup.x * this.cell, powerup.y * this.cell, this.cell, this.cell);
     }
   }
 

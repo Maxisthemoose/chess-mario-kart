@@ -19,7 +19,13 @@ function mainGame(ev) {
     const validSelected = allMoves.find(v => v[0] === x && v[1] === y);
     if (validSelected !== undefined) {
       const pieceThere = game.findPiece([x, y]);
-      if (pieceThere && pieceThere.color !== game.turn) {
+      let oneupUsed = false;
+      ifbreak: if (pieceThere && pieceThere.color !== game.turn) {
+
+        if (game.powerupHandler.onTake(pieceThere)) {
+          oneupUsed = true;
+          break ifbreak;
+        }
         const tookPiece = game.selectedPiece.take(pieceThere, game.pieces);
         
         if (tookPiece.color === "b") game.whiteTaken.push(tookPiece);
@@ -28,12 +34,15 @@ function mainGame(ev) {
         Util.renderTakenPieces(game.whiteTaken, wCtx, "b");
         Util.renderTakenPieces(game.blackTaken, bCtx, "w");
       }
+      if (!oneupUsed) {
+        game.selectedPiece.move([x, y], game.pieces, ctx);
 
-      game.selectedPiece.move([x, y], game.pieces, ctx);
+        game.powerupHandler.onMove(game.selectedPiece);
+      }
 
       game.board.updateCastleRights();
       game.deselect();
-      game.board.render();
+      game.board.render(game.powerupHandler);
 
       // const whiteKing = game.pieces.find(p => p.color === "w" && p.type === "k");
       // const blackKing = game.pieces.find(p => p.color === "b" && p.type === "k");
@@ -53,17 +62,18 @@ function mainGame(ev) {
       const checkmate = Util.inCheckmate(game.turn, game.pieces, game.castleRights);
       if (checkmate) {
         alert(checkmate + " was checkmated");
+        canvas.onclick = null;
       }
     } else {
       const pieceThere = game.findPiece([x, y]);
       if (pieceThere && pieceThere.color === game.turn) {
         game.select(pieceThere);
-        game.board.render();
+        game.board.render(game.powerupHandler);
         game.board.renderMoves(Util.legalMoves(pieceThere, game.pieces, game.castleRights));
         return;
       }
       game.deselect();
-      game.board.render();
+      game.board.render(game.powerupHandler);
     }
 
   }

@@ -17,8 +17,7 @@ class Piece {
   startY;
 
   /**
-   * @type {*}
-   * @private
+   * @type {Powerup}
    */
   powerup;
   /**
@@ -43,12 +42,12 @@ class Piece {
   getMoves(pieces) {}
   
 
+  /**
+   * 
+   * @param {Powerup} powerup 
+   */
   pickupPowerup(powerup) {
     this.powerup = powerup;
-  }
-
-  activatePowerup() {
-    // this.powerup.use(this);
   }
 
   // Checking for a valid move should be a function of the board, not the pieces job.

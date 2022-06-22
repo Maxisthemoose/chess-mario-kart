@@ -20,8 +20,23 @@ class Game {
    */
   blackTaken = [];
 
+  /**
+   * @type {Powerup}
+   */
+  globalPowerupW;
+  /**
+   * @type {Powerup}
+   */
+  globalPowerupB;
+
+  /**
+   * @type {PowerupHandler}
+   */
+  powerupHandler;
+
   constructor() {
-    this.board.render();
+    this.powerupHandler = new PowerupHandler(this.pieces);
+    this.board.render(this.powerupHandler);
   }
 
   /**
