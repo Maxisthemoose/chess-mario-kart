@@ -4,12 +4,8 @@ class Oneup extends Powerup {
    * @param {number} y 
    */
   constructor(x, y) {
-    super(x, y, "Oneup", document.getElementById("Oneup"), "Respawns the piece once it is taken.", false, true);
+    super(x, y, "Oneup", document.getElementById("Oneup"), "Prevents the piece from being taken for one turn", false, true);
   }
-
-  /**
-   * @param {Piece} piece The piece that attacked the piece on the current square
-   */
   use() {
     return true;
   }

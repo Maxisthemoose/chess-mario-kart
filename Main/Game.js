@@ -13,6 +13,8 @@ class Game {
    */
   whiteTaken = [];
 
+  stunned = false;
+
   /**
    * Array of all pieces black has took from white
    * Array should contain white pieces

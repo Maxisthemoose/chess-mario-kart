@@ -2,6 +2,7 @@ class PowerupHandler {
 
   static allPowerups = [
     Oneup,
+    Pow,
   ];
 
   /**
@@ -23,9 +24,11 @@ class PowerupHandler {
    * @param {Piece} piece 
    */
   onMove(piece) {
-    // 20% chance powerup spawns on move
+    // 10% chance powerup spawns on move
     const random = Math.random();
-    if (random <= 0.2 && this.powerups.length < 2) this.spawnPowerup();
+    if (random <= 1 && this.powerups.length < 2) this.spawnPowerup();
+
+    // should implement some kind of rarity system for spawning certain powerups.
 
     const powerupAtLocation = this.powerups.find(power => power.x === piece.x && power.y === piece.y);
     if (powerupAtLocation !== undefined) this.handlePickup(piece, powerupAtLocation);
@@ -99,7 +102,7 @@ class PowerupHandler {
     ctx.fillStyle = "#FAF9F6";
     ctx.fillText(powerup.name, width / 2, height / 2.5)
 
-    ctx.font = "20px Courier New";
+    ctx.font = "18px Courier New";
 
     const lines = Util.getLines(ctx, powerup.description, width - 50);
     const startY = height / 2;
@@ -107,16 +110,62 @@ class PowerupHandler {
       ctx.fillText(lines[y], width / 2, startY + y * 25);
     }
 
+    ctx.font = "bold 26px Courier New";
+
     if (!powerup.passive) {
 
-    } else {
-      ctx.font = "bold 28px Courier New";
+      const text = `🟢 Use ${powerup.name}`;
+      const textWidth = ctx.measureText(text).width;
+
+      const xStart = width / 2 - (textWidth / 2);
+      const yStart = height / 1.5;
+
+      ctx.fillStyle = "#171a1d";
+      ctx.strokeStyle = "white";
+      ctx.lineWidth = 3;
+
+
+      Util.roundRect(ctx, xStart - 10, yStart, textWidth + 25, 50, 10);
+      ctx.fill();
+      ctx.stroke();
+      ctx.textAlign = "left";
+      ctx.fillStyle = "white";      
+      ctx.fillText(text, xStart, yStart + 35);
+
+      this.handleUseButton(powerup, { x: xStart - 10, y: yStart, wx: textWidth + 25, wy: 50 });
+
+    } else 
       ctx.fillText("🟢 Passive Powerup", width / 2, height / 1.25);
-    }
+    
 
   }
 
-  handleUseButton(powerup) {
+  /**
+   * @param {Powerup} powerup 
+   * @param {{
+   * x: number;
+   * y: number;
+   * wx: number;
+   * wy: number;
+   * }} buttonData 
+   */
+  handleUseButton(powerup, buttonData) {
+    
+    infoBoardCanvas.onclick = function (ev) {
+      const [x, y] = Util.getCursorPosition(infoBoardCanvas, ev);
+
+      if (x >= buttonData.x && x <= buttonData.wx && y >= buttonData.y && y <= buttonData.wy) {
+        powerup.use();
+        infoBoardCanvas.onclick = null;
+
+        game.powerupHandler.clearInfoboard();
+      }
+
+    }
+
+    if (powerup.name === "Pow") {
+      powerup.use();
+    }
 
   }
 

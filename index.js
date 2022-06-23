@@ -1,4 +1,5 @@
 const game = new Game();
+let stunCounter = 0;
 
 canvas.onclick = mainGame;
 
@@ -43,12 +44,25 @@ function mainGame(ev) {
         game.powerupHandler.onMove(game.selectedPiece);
       }
 
+      // can move the same piece over and over, only selecting new piece makes pow work normally
+      // fix idot
+      console.log(game.stunned);
+
       game.board.updateCastleRights();
       game.deselect();
       game.board.render(game.powerupHandler);
       game.powerupHandler.clearInfoboard();
 
-      game.turn = game.turn === "w" ? "b" : "w";
+      if (!game.stunned)
+        game.turn = game.turn === "w" ? "b" : "w";
+      
+      if (game.stunned)
+        stunCounter++;
+      
+      if (stunCounter === 1) {
+        stunCounter = 0;
+        game.stunned = false;
+      }
       
       const king = game.pieces.find(p => p.color === game.turn && p.type === "k");
       const draw = Util.isDraw(king, game.pieces, game.castleRights);
