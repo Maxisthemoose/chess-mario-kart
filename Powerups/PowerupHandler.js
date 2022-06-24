@@ -62,10 +62,7 @@ class PowerupHandler {
 
     const randomSquare = available[Math.floor(Math.random() * available.length)];
     const randomPowerup = PowerupHandler.allPowerups[Math.floor(Math.random() * PowerupHandler.allPowerups.length)];
-    console.log(randomPowerup)
-
     this.powerups.push(new randomPowerup(randomSquare[0], randomSquare[1]));
-
   }
 
 
@@ -132,12 +129,12 @@ class PowerupHandler {
       ctx.fillStyle = "white";      
       ctx.fillText(text, xStart, yStart + 35);
 
-      this.handleUseButton(powerup, { x: xStart - 10, y: yStart, wx: textWidth + 25, wy: 50 });
+      this.handleUseButton(powerup, { x: xStart - 10, y: yStart, wx: textWidth + 25, wy: yStart + 50 });
+      piece.powerup = undefined;
 
     } else 
       ctx.fillText("🟢 Passive Powerup", width / 2, height / 1.25);
-    
-
+  
   }
 
   /**
@@ -150,23 +147,15 @@ class PowerupHandler {
    * }} buttonData 
    */
   handleUseButton(powerup, buttonData) {
-    
     infoBoardCanvas.onclick = function (ev) {
       const [x, y] = Util.getCursorPosition(infoBoardCanvas, ev);
-
       if (x >= buttonData.x && x <= buttonData.wx && y >= buttonData.y && y <= buttonData.wy) {
         powerup.use();
-        infoBoardCanvas.onclick = null;
-
         game.powerupHandler.clearInfoboard();
+        console.log("done");
+        infoBoardCanvas.onclick = null;
       }
-
     }
-
-    if (powerup.name === "Pow") {
-      powerup.use();
-    }
-
   }
 
   clearInfoboard() {

@@ -96,7 +96,7 @@ class Board {
           ctx.drawImage(p.image, p.x * this.cell, p.y * this.cell, this.cell / 5, this.cell / 5);
           alreadyDrawnIndex.push(i);
         } else if (!alreadyDrawnIndex.includes(i)) {
-          ctx.drawImage(p.image, p.x * this.cell, p.y * this.cell, this.cell, this.cell);
+          ctx.drawImage(p.image, p.x * this.cell + 5, p.y * this.cell + 5, this.cell - 10, this.cell - 10);
           alreadyDrawnIndex.push(i);
         }
       }

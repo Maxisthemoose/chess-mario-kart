@@ -44,10 +44,6 @@ function mainGame(ev) {
         game.powerupHandler.onMove(game.selectedPiece);
       }
 
-      // can move the same piece over and over, only selecting new piece makes pow work normally
-      // fix idot
-      console.log(game.stunned);
-
       game.board.updateCastleRights();
       game.deselect();
       game.board.render(game.powerupHandler);
